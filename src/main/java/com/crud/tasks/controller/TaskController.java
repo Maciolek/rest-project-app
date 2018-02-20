@@ -1,6 +1,7 @@
 package com.crud.tasks.controller;
 
 import com.crud.tasks.domain.TaskDto;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,13 +18,13 @@ public class TaskController {
         return new ArrayList<>();
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "tasks")
-    public TaskDto getTask(String taskId) {
+    @RequestMapping(method = RequestMethod.GET, value = "task/{id}")
+    public TaskDto getTask(@PathVariable("id") String taskId) {
         return new TaskDto((long) 1, "test title", "test_content");
     }
 
-    @RequestMapping(method = RequestMethod.DELETE, value = "tasks")
-    public void deleteTask(String taskId) {
+    @RequestMapping(method = RequestMethod.DELETE, value = "tasks/{id}")
+    public void deleteTask(@PathVariable("id")String taskId) {
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "tasks")
