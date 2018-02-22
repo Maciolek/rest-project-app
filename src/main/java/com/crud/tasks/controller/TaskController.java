@@ -1,6 +1,9 @@
 package com.crud.tasks.controller;
 
 import com.crud.tasks.domain.TaskDto;
+import com.crud.tasks.mapper.TaskMapper;
+import com.crud.tasks.service.DbService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +14,11 @@ import java.util.List;
 
 @RestController
 public class TaskController {
+
+    @Autowired
+    private DbService dbService;
+    @Autowired
+    private TaskMapper taskMapper;
 
     @RequestMapping(method = RequestMethod.GET, value = "tasks")
     public List<TaskDto> getTasks() {
