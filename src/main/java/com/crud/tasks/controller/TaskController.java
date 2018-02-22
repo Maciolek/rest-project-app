@@ -36,7 +36,7 @@ public class TaskController {
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "tasks/{id}")
-    @ResponseStatus(HttpStatus.ACCEPTED)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteTask(@PathVariable("id") String taskId) {
     }
 
