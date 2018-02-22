@@ -1,16 +1,27 @@
 package com.crud.tasks.controller;
 
 import com.crud.tasks.domain.TaskDto;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.apache.coyote.Response;
+import org.springframework.beans.factory.parsing.Location;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.net.URI;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.Locale;
 
 @RestController
-@RequestMapping("v1/task")
 public class TaskController {
 
     @RequestMapping(method = RequestMethod.GET, value = "tasks")
@@ -18,13 +29,15 @@ public class TaskController {
         return new ArrayList<>();
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "task/{id}")
+    @RequestMapping(method = RequestMethod.GET, value = "tasks/{id}")
+    @ResponseBody
     public TaskDto getTask(@PathVariable("id") String taskId) {
         return new TaskDto((long) 1, "test title", "test_content");
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "tasks/{id}")
-    public void deleteTask(@PathVariable("id")String taskId) {
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public void deleteTask(@PathVariable("id") String taskId) {
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "tasks")
@@ -33,6 +46,11 @@ public class TaskController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "tasks")
-    public void createTask(TaskDto taskDto) {
+    public ResponseEntity createTask(TaskDto taskDto) {
+        final HttpHeaders headers = new HttpHeaders();
+        headers.set("Location", "http://localhost:8080/tasks");
+        final ResponseEntity<Void> entity = new ResponseEntity<Void>(headers,
+                HttpStatus.CREATED);
+        return entity;
     }
 }
