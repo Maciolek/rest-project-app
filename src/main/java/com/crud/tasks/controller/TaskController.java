@@ -27,13 +27,13 @@ public class TaskController {
 
     @RequestMapping(method = RequestMethod.GET, value = "tasks/{id}")
     @ResponseBody
-    public TaskDto getTask(@PathVariable("id") String taskId) {
-        return new TaskDto((long) 1, "test title", "test_content");
+    public TaskDto getTask(@PathVariable("id") Long taskId) {
+        return taskMapper.mapToTaskDto(dbService.getTask(taskId));
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "tasks/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteTask(@PathVariable("id") String taskId) {
+    public void deleteTask(@PathVariable("id") Long taskId) {
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "tasks")
