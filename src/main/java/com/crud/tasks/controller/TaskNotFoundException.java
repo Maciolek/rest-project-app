@@ -1,5 +1,10 @@
 package com.crud.tasks.controller;
 
-public class TaskNotFoundException extends Exception{
+//@ResponseStatus(value= HttpStatus.NOT_FOUND, reason="ID Not Found")
+public class TaskNotFoundException extends Exception {
 
+    public TaskNotFoundException() {
+        super("Id Not Found");
+    }
 }
+

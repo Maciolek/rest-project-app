@@ -34,8 +34,11 @@ public class TaskController {
 
     @RequestMapping(method = RequestMethod.DELETE, value = "tasks")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteTask(@RequestParam Long taskId) {
-        service.deleteTask(taskId);
+    @ResponseBody()
+    public void deleteTask(@RequestParam Long taskId) throws Exception {
+        if (service.getTask(taskId).isPresent()) service.deleteTask(taskId);
+        else
+            throw new TaskNotFoundException();
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "tasks/")
@@ -50,5 +53,10 @@ public class TaskController {
         headers.set("Location", "http://localhost:8080/tasks");
         final ResponseEntity<Void> entity = new ResponseEntity<Void>(headers, HttpStatus.CREATED);
         return entity;
+    }
+
+    @ExceptionHandler(TaskNotFoundException.class)
+    public ResponseEntity<Object> showMessage(TaskNotFoundException taskNotFoundException) {
+        return new ResponseEntity<>(taskNotFoundException.getMessage(), HttpStatus.NOT_FOUND);
     }
 }
