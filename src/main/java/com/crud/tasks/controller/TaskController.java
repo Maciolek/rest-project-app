@@ -13,6 +13,7 @@ import java.util.List;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
+@CrossOrigin(origins = "*")
 @RestController
 public class TaskController {
 
@@ -21,23 +22,23 @@ public class TaskController {
     @Autowired
     private TaskMapper taskMapper;
 
-    @RequestMapping(method = RequestMethod.GET, value = "tasks")
+    @RequestMapping(method = RequestMethod.GET, value = "/tasks")
     public List<TaskDto> getTasks() {
         return taskMapper.mapToTaskDtoList(service.getAllTasks());
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "tasks/")
+    @RequestMapping(method = RequestMethod.GET, value = "/tasks/{taskId}")
     @ResponseBody
 
-    public TaskDto getTask(@PathVariable("id") Long taskId) {
-        return taskMapper.mapToTaskDto(dbService.getTask(taskId));
-
+    public TaskDto getTask(@PathVariable Long taskId) throws TaskNotFoundException {
+        return taskMapper.mapToTaskDto(service.getTask(taskId).orElseThrow(TaskNotFoundException::new));
     }
 
-    @RequestMapping(method = RequestMethod.DELETE, value = "tasks")
+    @RequestMapping(method = RequestMethod.DELETE, value = "/tasks/{taskId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @ResponseBody()
-    public void deleteTask(@RequestParam Long taskId) throws Exception {
+    public void deleteTask(@PathVariable Long taskId) throws Exception {
+
         if (service.getTask(taskId).isPresent()) service.deleteTask(taskId);
         else
             throw new TaskNotFoundException();
