@@ -28,27 +28,35 @@ public class TaskController {
 
     @RequestMapping(method = RequestMethod.GET, value = "tasks/")
     @ResponseBody
-    public TaskDto getTask(@RequestParam Long taskId) throws TaskNotFoundException
-    {
+    public TaskDto getTask(@RequestParam Long taskId) throws TaskNotFoundException {
         return taskMapper.mapToTaskDto(service.getTask(taskId).orElseThrow(TaskNotFoundException::new));
     }
 
-    @RequestMapping(method = RequestMethod.DELETE, value = "tasks/{id}")
+    @RequestMapping(method = RequestMethod.DELETE, value = "tasks")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteTask(@PathVariable("id") Long taskId) {
+    @ResponseBody()
+    public void deleteTask(@RequestParam Long taskId) throws Exception {
+        if (service.getTask(taskId).isPresent()) service.deleteTask(taskId);
+        else
+            throw new TaskNotFoundException();
     }
 
-    @RequestMapping(method = RequestMethod.PUT, value = "tasks")
+    @RequestMapping(method = RequestMethod.PUT, value = "tasks/")
     public TaskDto updateTask(@RequestBody TaskDto taskDto) {
         return taskMapper.mapToTaskDto(service.saveTask(taskMapper.mapToTask(taskDto)));
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "tasks", consumes = APPLICATION_JSON_VALUE)
+    @RequestMapping(method = RequestMethod.POST, value = "tasks/", consumes = APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> createTask(@RequestBody TaskDto taskDto) {
         service.saveTask(taskMapper.mapToTask(taskDto));
         final HttpHeaders headers = new HttpHeaders();
         headers.set("Location", "http://localhost:8080/tasks");
         final ResponseEntity<Void> entity = new ResponseEntity<Void>(headers, HttpStatus.CREATED);
         return entity;
+    }
+
+    @ExceptionHandler(TaskNotFoundException.class)
+    public ResponseEntity<Object> showMessage(TaskNotFoundException taskNotFoundException) {
+        return new ResponseEntity<>(taskNotFoundException.getMessage(), HttpStatus.NOT_FOUND);
     }
 }
