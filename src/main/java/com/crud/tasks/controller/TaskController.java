@@ -29,6 +29,7 @@ public class TaskController {
 
     @RequestMapping(method = RequestMethod.GET, value = "/tasks/{taskId}")
     @ResponseBody
+
     public TaskDto getTask(@PathVariable Long taskId) throws TaskNotFoundException {
         return taskMapper.mapToTaskDto(service.getTask(taskId).orElseThrow(TaskNotFoundException::new));
     }
@@ -37,12 +38,13 @@ public class TaskController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @ResponseBody()
     public void deleteTask(@PathVariable Long taskId) throws Exception {
+
         if (service.getTask(taskId).isPresent()) service.deleteTask(taskId);
         else
             throw new TaskNotFoundException();
     }
 
-    @RequestMapping(method = RequestMethod.PUT, value = "tasks")
+    @RequestMapping(method = RequestMethod.PUT, value = "tasks/")
     public TaskDto updateTask(@RequestBody TaskDto taskDto) {
         return taskMapper.mapToTaskDto(service.saveTask(taskMapper.mapToTask(taskDto)));
     }
