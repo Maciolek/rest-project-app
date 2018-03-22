@@ -21,21 +21,27 @@ public class TrelloClient {
     private String trelloAppKey;
     @Value("${trello.app.token}")
     private String trelloAppToken;
+    @Value("${trello.username}")
+    private String trelloUsername;
+
 
     @Autowired
     private RestTemplate restTemplate;
 
-    public List<TrelloBoardDto> getTrelloBoards() {
-
-        URI url = UriComponentsBuilder.fromHttpUrl(trelloApiEndpoint + "/members/maciolek.dariusz@gmail.com/boards")
+    private URI getUrl() {
+        URI url = UriComponentsBuilder.fromHttpUrl(trelloApiEndpoint + "/members/" + trelloUsername + "/boards")
                 .queryParam("key", trelloAppKey)
                 .queryParam("token", trelloAppToken)
                 .queryParam("fields", "name,id").build().encode().toUri();
+        return url;
+    }
 
-        TrelloBoardDto[] boardsResponse = restTemplate.getForObject(url, TrelloBoardDto[].class);
+    public List<TrelloBoardDto> getTrelloBoards() {
+
+        TrelloBoardDto[] boardsResponse = restTemplate.getForObject(getUrl(), TrelloBoardDto[].class);
 
         if (boardsResponse != null) {
-            return Arrays.asList(boardsResponse)
+            return Arrays.asList(boardsResponse);
         }
         return new ArrayList<>();
     }
