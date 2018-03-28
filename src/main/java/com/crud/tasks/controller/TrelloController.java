@@ -1,7 +1,9 @@
 package com.crud.tasks.controller;
 
 import com.crud.tasks.client.TrelloClient;
+import com.crud.tasks.domain.CreateTrelloCard;
 import com.crud.tasks.domain.TrelloBoardDto;
+import com.crud.tasks.domain.TrelloCardDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,5 +32,9 @@ public class TrelloController {
     @ExceptionHandler(TrelloNotFoundException.class)
     public ResponseEntity<Object> showMessage(TaskNotFoundException taskNotFoundException) {
         return new ResponseEntity<>(taskNotFoundException.getMessage(), HttpStatus.NOT_FOUND);
+
+    @RequestMapping(method = RequestMethod.POST, value = "/cards")
+    public CreateTrelloCard createTrelloCard(@RequestBody TrelloCardDto trelloCardDto) {
+        return trelloClient.createNewCard(trelloCardDto);
     }
 }
