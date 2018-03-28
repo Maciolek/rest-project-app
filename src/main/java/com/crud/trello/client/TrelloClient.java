@@ -1,4 +1,4 @@
-package com.crud.tasks.client;
+package com.crud.trello.client;
 
 import com.crud.tasks.domain.CreateTrelloCard;
 import com.crud.tasks.domain.TrelloBoardDto;
@@ -10,11 +10,9 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-
-import static java.util.Arrays.asList;
 
 @Component
 public class TrelloClient {
