@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -33,10 +34,7 @@ public class TrelloClientTest {
     @Mock
     TrelloConfig trelloConfig;
 
-
-
     @Before
-
     public void init() {
         when(trelloConfig.getTrelloApiEndpoint()).thenReturn("http://test.com");
         when(trelloConfig.getTrelloAppKey()).thenReturn("test");
@@ -60,7 +58,6 @@ public class TrelloClientTest {
         List<TrelloBoardDto> fetchedTrelloBoards = trelloClient.getTrelloBoards();
 
         //then
-
         assertEquals(1, fetchedTrelloBoards.size());
         assertEquals("test_id", fetchedTrelloBoards.get(0).getId());
         assertEquals("test_board", fetchedTrelloBoards.get(0).getName());
@@ -72,7 +69,6 @@ public class TrelloClientTest {
 
         //given
         URI uri = new URI("http://test.com/members/maciolek.dariusz@gmail.com/boards?key=test&token=test&fields=name,id&lists=all");
-
         when(restTemplate.getForObject(uri, TrelloBoardDto[].class)).thenReturn(null);
 
         //when
@@ -80,7 +76,8 @@ public class TrelloClientTest {
 
         //then
         assertEquals(0,returnTrelloBoards.size());
-    }
+        assertNotNull(returnTrelloBoards);
+        }
 
     @Ignore
     @Test
@@ -101,11 +98,9 @@ public class TrelloClientTest {
                 "Test task",
                 "http://test.com"
         );
-
         when(restTemplate.postForObject(uri,null, CreateTrelloCard.class)).thenReturn(createdTrelloCard);
 
         //then
-
         CreateTrelloCard newCard = trelloClient.createNewCard(trelloCardDto);
 
         System.out.println("new Card" + newCard.getId());
