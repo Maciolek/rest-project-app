@@ -39,7 +39,6 @@ public class TrelloClient {
         return url;
     }
 
-
     public List<TrelloBoardDto> getTrelloBoards() {
 
         try {
