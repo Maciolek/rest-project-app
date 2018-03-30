@@ -31,7 +31,7 @@ public class TrelloController {
         return new ResponseEntity<>(taskNotFoundException.getMessage(), HttpStatus.NOT_FOUND);
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "/cards")
+    @RequestMapping(method = RequestMethod.POST, value = "cards")
     public CreateTrelloCard createTrelloCard(@RequestBody TrelloCardDto trelloCardDto) {
         return trelloClient.createNewCard(trelloCardDto);
     }
