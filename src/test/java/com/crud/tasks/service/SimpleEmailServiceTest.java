@@ -8,6 +8,7 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.times;
 
@@ -21,22 +22,41 @@ public class SimpleEmailServiceTest {
     private JavaMailSender javaMailSender;
 
     @Test
-    public void shouldSendEmail() {
+    public void shouldSendEmailToCC() {
 
         //given
+        Mail mail = new Mail("maciolek.dariusz@gmail.com", "mail testowy", "pierwszy test", "sa@test.pl");
 
-        Mail mail = new Mail("madiolek.dariusz@gmail.com", "mail testowy", "pierwszy test");
+        SimpleMailMessage mailMessage = new SimpleMailMessage();
+        mailMessage.setTo(mail.getMailTo());
+        mailMessage.setSubject(mail.getSubject());
+        mailMessage.setText(mail.getMessage());
+        mailMessage.setCc(mail.getToCC());
+
+        //when
+        simpleEmailService.send(mail);
+
+        //then
+        verify(javaMailSender, times(1)).send(mailMessage);
+        mailMessage.toString();
+    }
+
+    @Test
+    public void shouldSendEmailWithoutToCC() {
+
+        //given
+        Mail mail = new Mail("maciolek.dariusz@gmail.com", "mail testowy", "pierwszy test");
 
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setTo(mail.getMailTo());
         mailMessage.setSubject(mail.getSubject());
         mailMessage.setText(mail.getMessage());
 
-
         //when
         simpleEmailService.send(mail);
 
         //then
-        verify(javaMailSender,times(1)).send(mailMessage);
+        verify(javaMailSender, times(1)).send(mailMessage);
+        mailMessage.toString();
     }
 }

@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 @Service
 public class SimpleEmailService {
 
@@ -34,6 +33,13 @@ public class SimpleEmailService {
         simpleMailMessage.setTo(mail.getMailTo());
         simpleMailMessage.setSubject(mail.getSubject());
         simpleMailMessage.setText(mail.getMessage());
+
+        if (mail.getToCC()!=null) {
+            simpleMailMessage.setCc(mail.getToCC());
+            LOGGER.info("Email has been sent also to CC");
+        } else {
+            LOGGER.info("Field toCC is empty");
+        }
         return simpleMailMessage;
     }
 }

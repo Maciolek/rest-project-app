@@ -9,8 +9,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Mail {
 
-    public String mailTo;
-    public String subject;
-    public String message;
+    private String mailTo;
+    private String subject;
+    private String message;
+    private String toCC;
 
+    public Mail(String mailTo, String subject, String message) {
+        this.mailTo = mailTo;
+        this.subject = subject;
+        this.message = message;
+    }
 }
