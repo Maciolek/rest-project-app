@@ -17,8 +17,8 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/task/")
-@Api(description = "Endpoints for tasks")
 
+@Api(description = "Endpoints for tasks")
 public class TaskController {
 
     @Autowired
@@ -34,6 +34,7 @@ public class TaskController {
             @ApiResponse(code = 401, message = "The request requires user authentication"),
             @ApiResponse(code = 403, message = "The server understood the request, but is refusing to fulfill it"),
             @ApiResponse(code = 404, message = "Page not found")})
+
     public List<TaskDto> getTasks() {
         return taskMapper.mapToTaskDtoList(service.getAllTasks());
     }
@@ -49,6 +50,7 @@ public class TaskController {
     public TaskDto getTask(
             @ApiParam(required = true, name = "taskId", value = "ID of the task you want to get", defaultValue = "0")
             @PathVariable Long taskId) throws TaskNotFoundException {
+
         return taskMapper.mapToTaskDto(service.getTask(taskId).orElseThrow(TaskNotFoundException::new));
     }
 
