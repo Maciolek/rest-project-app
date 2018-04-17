@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "*")
+@RequestMapping("/trello/")
 public class TrelloController {
 
     @Autowired
@@ -29,7 +31,7 @@ public class TrelloController {
         return new ResponseEntity<>(taskNotFoundException.getMessage(), HttpStatus.NOT_FOUND);
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "/cards")
+    @RequestMapping(method = RequestMethod.POST, value = "cards")
     public CreateTrelloCard createTrelloCard(@RequestBody TrelloCardDto trelloCardDto) {
         return trelloClient.createNewCard(trelloCardDto);
     }

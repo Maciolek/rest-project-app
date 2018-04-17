@@ -5,7 +5,6 @@ import com.crud.tasks.domain.TrelloBoardDto;
 import com.crud.tasks.domain.TrelloCardDto;
 import com.crud.tasks.trello.config.TrelloConfig;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -33,10 +32,7 @@ public class TrelloClientTest {
     @Mock
     TrelloConfig trelloConfig;
 
-
-
     @Before
-
     public void init() {
         when(trelloConfig.getTrelloApiEndpoint()).thenReturn("http://test.com");
         when(trelloConfig.getTrelloAppKey()).thenReturn("test");
@@ -50,7 +46,7 @@ public class TrelloClientTest {
         //given
 
         TrelloBoardDto[] trelloBoards = new TrelloBoardDto[1];
-        trelloBoards[0] = new TrelloBoardDto("test_id", "test_board", new ArrayList<>());
+        trelloBoards[0] = new TrelloBoardDto("test_id", "test_board", new ArrayList<>(), false);
 
         URI uri = new URI("http://test.com/members/maciolek.dariusz@gmail.com/boards?key=test&token=test&fields=name,id&lists=all");
 
@@ -60,26 +56,23 @@ public class TrelloClientTest {
         List<TrelloBoardDto> fetchedTrelloBoards = trelloClient.getTrelloBoards();
 
         //then
-
         assertEquals(1, fetchedTrelloBoards.size());
         assertEquals("test_id", fetchedTrelloBoards.get(0).getId());
         assertEquals("test_board", fetchedTrelloBoards.get(0).getName());
         assertEquals(new ArrayList<>(), fetchedTrelloBoards.get(0).getLists());
     }
 
-    @Ignore
     @Test
     public void shouldCreateCard() throws URISyntaxException {
         //given
         TrelloCardDto trelloCardDto = new TrelloCardDto(
-                "Task task",
+                "Test task",
                 "Test Description",
                 "top",
                 "test_id");
 
         //when
         URI uri = new URI("http://test.com/cards?key=test&token=test&name=Test%20task&desc=Test%20Description&pos=top&idList=test_id");
-                             //http://test.com/cards?key=test&token=test&name=Task%20task&desc=Test%20Description&pos=top&idList=test_id
 
         CreateTrelloCard createdTrelloCard = new CreateTrelloCard(
                 "1",
@@ -87,18 +80,14 @@ public class TrelloClientTest {
                 "http://test.com"
         );
 
-        when(restTemplate.postForObject(uri,null, CreateTrelloCard.class)).thenReturn(createdTrelloCard);
+        when(restTemplate.postForObject(uri, null, CreateTrelloCard.class)).thenReturn(createdTrelloCard);
 
         //then
 
         CreateTrelloCard newCard = trelloClient.createNewCard(trelloCardDto);
 
-        System.out.println("new Card" + newCard.getId());
-        System.out.println("new Card" + newCard.getName());
-        System.out.println("new Card" + newCard.getShortUrl());
-
-        assertEquals(1,newCard.getId());
-        assertEquals("Test task",newCard.getName());
-        assertEquals("http://test.com",newCard.getShortUrl());
+        assertEquals("1", newCard.getId());
+        assertEquals("Test task", newCard.getName());
+        assertEquals("http://test.com", newCard.getShortUrl());
     }
 }
