@@ -46,7 +46,7 @@ public class TrelloClientTest {
         //given
 
         TrelloBoardDto[] trelloBoards = new TrelloBoardDto[1];
-        trelloBoards[0] = new TrelloBoardDto("test_id", "test_board", new ArrayList<>());
+        trelloBoards[0] = new TrelloBoardDto("test_id", "test_board", new ArrayList<>(), false);
 
         URI uri = new URI("http://test.com/members/maciolek.dariusz@gmail.com/boards?key=test&token=test&fields=name,id&lists=all");
 
