@@ -70,7 +70,6 @@ public class TrelloClientTest {
                 "Test Description",
                 "top",
                 "test_id");
-
         //when
         URI uri = new URI("http://test.com/cards?key=test&token=test&name=Test%20task&desc=Test%20Description&pos=top&idList=test_id");
 
