@@ -1,10 +1,9 @@
 package com.crud.tasks.controller;
 
-
-import com.crud.tasks.domain.CreateTrelloCard;
+import com.crud.tasks.domain.CreatedTrelloCard;
 import com.crud.tasks.domain.TrelloBoardDto;
 import com.crud.tasks.domain.TrelloCardDto;
-import com.crud.tasks.trello.client.TrelloClient;
+import com.crud.tasks.service.TrelloService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,12 +17,11 @@ import java.util.List;
 public class TrelloController {
 
     @Autowired
-    private TrelloClient trelloClient;
+    private TrelloService trelloService;
 
     @RequestMapping(method = RequestMethod.GET, value = "boards")
     public List<TrelloBoardDto> getTrelloBoards() throws TrelloNotFoundException {
-        return trelloClient.getTrelloBoards();
-                //.orElseThrow(TrelloNotFoundException::new);
+        return trelloService.fetchTrelloBoards();
     }
 
     @ExceptionHandler(TrelloNotFoundException.class)
@@ -32,7 +30,7 @@ public class TrelloController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "cards")
-    public CreateTrelloCard createTrelloCard(@RequestBody TrelloCardDto trelloCardDto) {
-        return trelloClient.createNewCard(trelloCardDto);
+    public CreatedTrelloCard createTrelloCard(@RequestBody TrelloCardDto trelloCardDto) {
+        return trelloService.createTrelloCard(trelloCardDto);
     }
 }

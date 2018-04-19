@@ -1,6 +1,6 @@
 package com.crud.tasks.trello.client;
 
-import com.crud.tasks.domain.CreateTrelloCard;
+import com.crud.tasks.domain.CreatedTrelloCard;
 import com.crud.tasks.domain.TrelloBoardDto;
 import com.crud.tasks.domain.TrelloCardDto;
 import com.crud.tasks.trello.config.TrelloConfig;
@@ -73,17 +73,17 @@ public class TrelloClientTest {
         //when
         URI uri = new URI("http://test.com/cards?key=test&token=test&name=Test%20task&desc=Test%20Description&pos=top&idList=test_id");
 
-        CreateTrelloCard createdTrelloCard = new CreateTrelloCard(
+        CreatedTrelloCard createdTrelloCard = new CreatedTrelloCard(
                 "1",
                 "Test task",
                 "http://test.com"
         );
 
-        when(restTemplate.postForObject(uri, null, CreateTrelloCard.class)).thenReturn(createdTrelloCard);
+        when(restTemplate.postForObject(uri, null, CreatedTrelloCard.class)).thenReturn(createdTrelloCard);
 
         //then
 
-        CreateTrelloCard newCard = trelloClient.createNewCard(trelloCardDto);
+        CreatedTrelloCard newCard = trelloClient.createNewCard(trelloCardDto);
 
         assertEquals("1", newCard.getId());
         assertEquals("Test task", newCard.getName());

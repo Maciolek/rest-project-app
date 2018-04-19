@@ -1,4 +1,5 @@
 package com.crud.tasks.config;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,6 +13,7 @@ import springfox.documentation.spring.web.plugins.Docket;
 
 @EnableSwagger2
 @Configuration
+@EnableScheduling
 public class CoreConfiguration implements WebMvcConfigurer {
 
     @Bean
