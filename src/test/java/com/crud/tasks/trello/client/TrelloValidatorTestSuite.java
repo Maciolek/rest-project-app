@@ -5,7 +5,6 @@ import com.crud.tasks.domain.TrelloList;
 import com.crud.tasks.trello.validator.TrelloValidator;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.ArrayList;
@@ -17,12 +16,11 @@ import static org.junit.Assert.assertNotNull;
 @RunWith(MockitoJUnitRunner.class)
 public class TrelloValidatorTestSuite {
 
-    @InjectMocks
-    TrelloValidator trelloValidator;
-
     @Test
     public void testValidateTrelloBoards() {
         //given
+        TrelloValidator trelloValidator = new TrelloValidator();
+
         List<TrelloList> trelloLists = new ArrayList<>();
         trelloLists.add(new TrelloList("1", "list1", false));
 
