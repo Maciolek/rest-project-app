@@ -26,7 +26,6 @@ public class TaskController {
     @Autowired
     private TaskMapper taskMapper;
 
-
     @RequestMapping(method = RequestMethod.GET, value = "tasks")
     @ApiOperation(value = "Returns a complete list of tasks", notes = "Retrieving collection of tasks")
     @ApiResponses(value = {
