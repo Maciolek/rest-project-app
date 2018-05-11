@@ -14,8 +14,8 @@ import java.util.List;
 @RunWith(MockitoJUnitRunner.class)
 public class TrelloMapperTestSuite {
 
-    @InjectMocks
-    TrelloMapper trelloMapper;
+
+    private TrelloMapper trelloMapper = new TrelloMapper();
 
     @Test
     public void testMapToBoardDto() {
