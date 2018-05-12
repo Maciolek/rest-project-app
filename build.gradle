@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        springBootVersion = '2.0.0.M7'
+        springBootVersion = '2.0.0.RC1'
     }
     repositories {
         mavenCentral()
@@ -31,8 +31,8 @@ repositories {
 
 dependencies {
     compile('org.springframework.boot:spring-boot-starter-web')
-    compile('org.springframework.boot:spring-boot-starter-data-jpa:2.0.0.M7')
-    compile('org.springframework.boot:spring-boot-starter-mail:2.0.0.M7')
+    compile('org.springframework.boot:spring-boot-starter-data-jpa:1.5.10.RELEASE')
+    compile('org.springframework.boot:spring-boot-starter-mail:2.0.0.RELEASE')
     compile('org.springframework.boot:spring-boot-starter-actuator')
     compile('org.projectlombok:lombok:1.16.20')
     compile('mysql:mysql-connector-java:8.0.11')
