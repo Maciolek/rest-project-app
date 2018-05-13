@@ -29,12 +29,12 @@ public class ActiveDatabaseActuatorEndpoint {
     @ReadOperation
     public String getInfoActiveDatabase() {
 
-        String request = "Activeprofile: " + this.getActiveProfile() + "\n"
+        String response = "Activeprofile: " + this.getActiveProfile() + "\n"
                 + "Database name: " + this.getDatabaseName() + "\n"
                 + "Hibernate dialog: " + this.getHibernateDialect() + "\n"
                 + "Database user: " + this.getUsername();
 
-        return request;
+        return response;
     }
 }
 

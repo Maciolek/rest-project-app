@@ -17,7 +17,7 @@ public class TrelloConfig {
     @Value("${trello.username}")
     private String trelloUsername;
 
-    public String getENDPOINT() {
+    public String getEndPoint() {
         return trelloApiEndpoint;
     }
 }

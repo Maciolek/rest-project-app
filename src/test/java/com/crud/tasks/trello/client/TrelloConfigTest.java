@@ -32,9 +32,9 @@ public class TrelloConfigTest {
     public void testGetENDPOINT() {
         //given
         String trelloApiEndpoint = "https://api.trello.com/1";
-        when(trelloConfig.getENDPOINT()).thenReturn(trelloApiEndpoint);
+        when(trelloConfig.getEndPoint()).thenReturn(trelloApiEndpoint);
         //when
-        String excpectApiEndpoint = trelloConfig.getENDPOINT();
+        String excpectApiEndpoint = trelloConfig.getEndPoint();
         //then
         Assert.assertEquals(trelloApiEndpoint, excpectApiEndpoint);
     }

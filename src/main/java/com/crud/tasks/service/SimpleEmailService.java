@@ -34,13 +34,6 @@ public class SimpleEmailService {
     }
 
     private MimeMessagePreparator createMimeMessage(final Mail mail) {
-//
-//        if (mail.getToCC()!=null) {
-//            simpleMailMessage.setCc(mail.getToCC());
-//        LOGGER.info("Email has been sent also to CC");
-//    } else {
-//        LOGGER.info("Field toCC is empty");
-//    }
         return mimeMessage -> {
             MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
             messageHelper.setTo(mail.getMailTo());
@@ -48,28 +41,20 @@ public class SimpleEmailService {
             messageHelper.setText(mailCreatorService.buildTrelloCardMail(mail.getMessage()), true);
         };
     }
-//
-//    private SimpleMailMessage createMailMessage(final Mail mail) {
-//        SimpleMailMessage mailMessage = new SimpleMailMessage();
-//        mailMessage.setTo(mail.getMailTo());
-//        mailMessage.setSubject(mail.getSubject());
-//        mailMessage.setText(mailCreatorService.buildTrelloCardMail(mail.getMessage()));
-//        return mailMessage;
-//    }
 
-//    }    private SimpleMailMessage createMailMessage(final Mail templates.mail) {
-//        SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
-//        simpleMailMessage.setTo(templates.mail.getMailTo());
-//        simpleMailMessage.setSubject(templates.mail.getSubject());
-//        simpleMailMessage.setText(templates.mail.getMessage());
-//
-//        if (templates.mail.getToCC()!=null) {
-//            simpleMailMessage.setCc(templates.mail.getToCC());
-//            LOGGER.info("Email has been sent also to CC");
-//        } else {
-//            LOGGER.info("Field toCC is empty");
-//        }
-//        return simpleMailMessage;
-//    }
+    private SimpleMailMessage createMailMessage(final Mail mail) {
+        SimpleMailMessage mailMessage = new SimpleMailMessage();
+        mailMessage.setTo(mail.getMailTo());
+        mailMessage.setSubject(mail.getSubject());
+        mailMessage.setText(mailCreatorService.buildTrelloCardMail(mail.getMessage()));
+
+        if (mail.getToCC()!=null) {
+            mailMessage.setCc(mail.getToCC());
+            LOGGER.info("Email has been sent also to CC");
+        } else {
+            LOGGER.info("Field toCC is empty");
+        }
+        return mailMessage;
+    }
 }
 
