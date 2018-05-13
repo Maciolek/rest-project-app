@@ -36,7 +36,7 @@ public class SimpleEmailServiceTest {
         mailMessage.setCc(mail.getToCC());
 
         //when
-        simpleEmailService.send(mail);
+        simpleEmailService.send(mail, EmailTemplateSelector.SCHEDULED_EMAIL);
 
         //then
         verify(javaMailSender, times(1)).send(mailMessage);
@@ -56,7 +56,7 @@ public class SimpleEmailServiceTest {
         mailMessage.setText(mail.getMessage());
 
         //when
-        simpleEmailService.send(mail);
+        simpleEmailService.send(mail, EmailTemplateSelector.SCHEDULED_EMAIL);
 
         //then
         verify(javaMailSender, times(1)).send(mailMessage);

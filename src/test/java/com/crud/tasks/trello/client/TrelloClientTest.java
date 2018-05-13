@@ -108,8 +108,5 @@ public class TrelloClientTest {
 
         assertEquals("1", newCard.getId());
         assertEquals("Test task", newCard.getName());
-        assertEquals(1, newCard.getBadges().getVotes());
-        assertEquals(11, newCard.getBadges().getAttachments().getTrello().getBoard());
-        assertEquals(22, newCard.getBadges().getAttachments().getTrello().getCard());
     }
 }
