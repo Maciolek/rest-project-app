@@ -1,9 +1,6 @@
 package com.crud.tasks.controller;
 
-import com.crud.tasks.domain.CreatedTrelloCardDto;
-import com.crud.tasks.domain.TrelloBoardDto;
-import com.crud.tasks.domain.TrelloCardDto;
-import com.crud.tasks.domain.TrelloListDto;
+import com.crud.tasks.domain.*;
 import com.crud.tasks.trello.facade.TrelloFacade;
 import com.google.gson.Gson;
 import org.junit.Test;
@@ -87,7 +84,12 @@ public class TrelloControllerTest {
         CreatedTrelloCardDto createdTrelloCardDto = new CreatedTrelloCardDto(
                 "323",
                 "test",
-                "https://test.com"
+                "https://test.com",
+                new Badges(1,
+                        new AttachmentsByType(
+                                new Trello(11, 22)
+                        )
+                )
         );
 
         Gson gson = new Gson();

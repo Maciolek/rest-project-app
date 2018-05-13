@@ -22,7 +22,6 @@ public class SimpleEmailServiceTest {
     @Mock
     private JavaMailSender javaMailSender;
 
-    @Ignore
     @Test
     public void shouldSendEmailToCC() {
 
@@ -43,7 +42,6 @@ public class SimpleEmailServiceTest {
         mailMessage.toString();
     }
 
-    @Ignore
     @Test
     public void shouldSendEmailWithoutToCC() {
 
