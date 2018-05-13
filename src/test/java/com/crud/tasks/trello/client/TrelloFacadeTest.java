@@ -1,9 +1,6 @@
 package com.crud.tasks.trello.client;
 
-import com.crud.tasks.domain.TrelloBoard;
-import com.crud.tasks.domain.TrelloBoardDto;
-import com.crud.tasks.domain.TrelloList;
-import com.crud.tasks.domain.TrelloListDto;
+import com.crud.tasks.domain.*;
 import com.crud.tasks.mapper.TrelloMapper;
 import com.crud.tasks.service.TrelloService;
 import com.crud.tasks.trello.facade.TrelloFacade;
@@ -105,6 +102,46 @@ public class TrelloFacadeTest {
                 assertFalse(trelloListDto.isClosed());
             });
         });
+    }
+
+    @Test
+    public void shouldCreateNewCard() {
+        //given
+        TrelloCardDto trelloCardDto = new TrelloCardDto(
+                "Test task",
+                "Test Description",
+                "top",
+                "test_id");
+
+        TrelloCard trelloCard = new TrelloCard(
+                "Test task",
+                "Test Description",
+                "top",
+                "test_id");
+
+        //when
+        CreatedTrelloCardDto createdTrelloCardDto = new CreatedTrelloCardDto(
+                "1",
+                "Test task",
+                "http://test.com",
+                new Badges(1,
+                        new AttachmentsByType(
+                                new Trello(11, 22)
+                        ))
+        );
+        when(trelloMapper.mapToCard(trelloCardDto)).thenReturn(trelloCard);
+        when(trelloMapper.mapToCardDto(trelloCard)).thenReturn(trelloCardDto);
+        when(trelloService.createTrelloCard(trelloCardDto)).thenReturn(createdTrelloCardDto);
+
+        //then
+
+        CreatedTrelloCardDto newCard = trelloFacade.createCard(trelloCardDto);
+        assertNotNull(newCard);
+        assertEquals("1", newCard.getId());
+        assertEquals("Test task", newCard.getName());
+        assertEquals(1, newCard.getBadges().getVotes());
+        assertEquals(11, newCard.getBadges().getAttachments().getTrello().getBoard());
+        assertEquals(22, newCard.getBadges().getAttachments().getTrello().getCard());
     }
 }
 
