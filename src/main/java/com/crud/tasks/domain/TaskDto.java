@@ -1,16 +1,13 @@
 package com.crud.tasks.domain;
 
 import io.swagger.annotations.ApiModelProperty;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-
+@EqualsAndHashCode
 public class TaskDto {
 
     @ApiModelProperty(value = "The id", position = 1)

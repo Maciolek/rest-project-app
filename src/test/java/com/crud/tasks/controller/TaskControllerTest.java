@@ -60,7 +60,7 @@ public class TaskControllerTest {
         //when & then
 
         mockMvc.perform(get("/task/tasks").contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-                .andExpect(status().is(200))
+                .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)))
                 .andExpect(jsonPath("$.[0].id", is(1)))
                 .andExpect(jsonPath("$.[0].title", is("test task")))
@@ -86,7 +86,7 @@ public class TaskControllerTest {
         //when & then
 
         mockMvc.perform(get("/task/tasks").contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-                .andExpect(status().is(200))
+                .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(0))
                 );
         verify(service, times(1)).getAllTasks();
@@ -133,7 +133,7 @@ public class TaskControllerTest {
         //when & then
         try {
             mockMvc.perform(get("/task/tasks/{id}", 99L).contentType(MediaType.APPLICATION_JSON))
-                    .andExpect(status().is(404))
+                    .andExpect(status().isNotFound())
                     .andExpect(content().string("Id Not Found"))
                     .andDo(print());
         } catch (TaskNotFoundException e) {
@@ -195,7 +195,7 @@ public class TaskControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .characterEncoding(("UTF-8"))
                 .content(jsonContent))
-                .andExpect(status().is(200))
+                .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", is(1)))
                 .andExpect(jsonPath("$.title", is("test task")))
                 .andExpect(jsonPath("$.content", is("test to do"))
@@ -234,13 +234,12 @@ public class TaskControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .characterEncoding(("UTF-8"))
                 .content(jsonContent))
-                .andExpect(status().is(201))
-                .andExpect(header().string("location", containsString("http://localhost:8080/tasks")))
-        ;
-//why is it not working?
-//        verify(taskMapper, times(1)).mapToTask(taskDto);
-//        verify(service, times(1)).saveTask(task);
-//        verifyNoMoreInteractions(taskMapper);
-//        verifyNoMoreInteractions(service);
+                .andExpect(status().isCreated())
+                .andExpect(header().string("location", containsString("http://localhost:8080/tasks"))
+                );
+        verify(taskMapper, times(1)).mapToTask(taskDto);
+        verify(service, times(1)).saveTask(task);
+        verifyNoMoreInteractions(taskMapper);
+        verifyNoMoreInteractions(service);
     }
 }

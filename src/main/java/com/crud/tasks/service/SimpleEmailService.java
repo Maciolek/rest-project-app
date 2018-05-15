@@ -40,14 +40,17 @@ public class SimpleEmailService {
             messageHelper.setTo(mail.getMailTo());
             messageHelper.setSubject(mail.getSubject());
             messageHelper.setText(getMailHtmlTextForTemplateSelector(mail.getMessage(), template), true);
-        };
+            messageHelper.setCc(mail.getToCC());
+    };
     }
 
     private SimpleMailMessage createMailMessage(final Mail mail) {
+
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setTo(mail.getMailTo());
         mailMessage.setSubject(mail.getSubject());
         mailMessage.setText(mailCreatorService.buildTrelloCardMail(mail.getMessage()));
+
         if (mail.getToCC() != null) {
             mailMessage.setCc(mail.getToCC());
             LOGGER.info("Email has been sent also to CC");
