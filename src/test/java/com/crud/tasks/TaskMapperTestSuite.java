@@ -12,7 +12,8 @@ import org.mockito.junit.MockitoJUnitRunner;
 import java.util.Arrays;
 import java.util.List;
 
-import static junit.framework.TestCase.assertEquals;
+import static org.junit.Assert.assertEquals;
+
 
 @RunWith(MockitoJUnitRunner.class)
 public class TaskMapperTestSuite {
@@ -30,9 +31,9 @@ public class TaskMapperTestSuite {
 
         //then
         Assert.assertNotNull(task);
-        Assert.assertEquals(1l, task.getId(), 0);
-        Assert.assertEquals("task to do", task.getTitle());
-        Assert.assertEquals("learn TDD", task.getContent());
+        assertEquals(1l, task.getId(), 0);
+        assertEquals("task to do", task.getTitle());
+        assertEquals("learn TDD", task.getContent());
     }
 
     @Test
@@ -45,9 +46,9 @@ public class TaskMapperTestSuite {
 
         //then
         Assert.assertNotNull(task);
-        Assert.assertEquals(2l, taskDto.getId(), 0);
-        Assert.assertEquals("task to do ASAP", taskDto.getTitle());
-        Assert.assertEquals("learn JAVA", taskDto.getContent());
+        assertEquals(2l, taskDto.getId(), 0);
+        assertEquals("task to do ASAP", taskDto.getTitle());
+        assertEquals("learn JAVA", taskDto.getContent());
     }
 
     @Test
@@ -61,7 +62,7 @@ public class TaskMapperTestSuite {
 
         //then
         Assert.assertNotNull(taskDtoList);
-        Assert.assertEquals(1, taskDtoList.size());
+        assertEquals(1, taskDtoList.size());
         taskDtoList.forEach(taskDto -> {
             assertEquals(3L, taskDto.getId(), 0);
             assertEquals("task to do", taskDto.getTitle());

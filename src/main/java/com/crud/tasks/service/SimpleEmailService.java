@@ -40,8 +40,7 @@ public class SimpleEmailService {
             messageHelper.setTo(mail.getMailTo());
             messageHelper.setSubject(mail.getSubject());
             messageHelper.setText(getMailHtmlTextForTemplateSelector(mail.getMessage(), template), true);
-            messageHelper.setCc(mail.getToCC());
-    };
+     };
     }
 
     private SimpleMailMessage createMailMessage(final Mail mail) {

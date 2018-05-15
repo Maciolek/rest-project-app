@@ -15,9 +15,10 @@ import org.mockito.junit.MockitoJUnitRunner;
 import java.util.ArrayList;
 import java.util.List;
 
-import static junit.framework.Assert.assertNotNull;
-import static junit.framework.TestCase.assertEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.when;
+
 
 @RunWith(MockitoJUnitRunner.class)
 public class TrelloServiceTestSuite {
@@ -84,11 +85,11 @@ public class TrelloServiceTestSuite {
         List<TrelloBoardDto> fetchedTrelloBoards = trelloService.fetchTrelloBoards();
         //then
 
-        Assert.assertNotNull(fetchedTrelloBoards);
-        Assert.assertEquals(1, fetchedTrelloBoards.size());
-        Assert.assertEquals("1", fetchedTrelloBoards.get(0).getId());
-        Assert.assertEquals("test", fetchedTrelloBoards.get(0).getName());
-        Assert.assertEquals(trelloListsDto, fetchedTrelloBoards.get(0).getLists());
+        assertNotNull(fetchedTrelloBoards);
+        assertEquals(1, fetchedTrelloBoards.size());
+        assertEquals("1", fetchedTrelloBoards.get(0).getId());
+        assertEquals("test", fetchedTrelloBoards.get(0).getName());
+        assertEquals(trelloListsDto, fetchedTrelloBoards.get(0).getLists());
     }
 }
 

@@ -10,6 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.mockito.Mockito.when;
 
+
 @RunWith(MockitoJUnitRunner.class)
 @SpringBootTest
 public class TrelloConfigTest {
