@@ -45,6 +45,7 @@ dependencies {
     compile('com.google.code.gson:gson:2.8.2')
     compile('org.springframework.boot:spring-boot-starter-thymeleaf')
     compile('org.postgresql:postgresql')
+//    compile('org.postgresql:postgresql:42.2.2')
     testCompile('org.springframework.boot:spring-boot-starter-test')
     //  providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
     //  compile('mysql:mysql-connector-java:8.0.11')
