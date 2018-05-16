@@ -46,7 +46,6 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter-thymeleaf')
     compile('org.postgresql:postgresql')
     testCompile('org.springframework.boot:spring-boot-starter-test')
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-tomcat', version: '2.0.0.RC1'
     //   providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
 
 //  compile('mysql:mysql-connector-java:8.0.11')
